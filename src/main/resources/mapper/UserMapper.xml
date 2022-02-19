@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.djg.dmall_api.mapper.UserMapper">
+    <select id="selectByMobileUser"  resultType="com.djg.dmall_api.po.User">
+        SELECT *
+        FROM dmall_user
+        WHERE mobile = #{ID}
+    </select>
+    <select id="selectByIdUser" resultType="com.djg.dmall_api.po.User">
+        SELECT *
+        FROM dmall_user
+        WHERE id = #{ID}
+    </select>
+</mapper>
