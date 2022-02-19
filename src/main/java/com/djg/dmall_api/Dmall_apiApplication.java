@@ -3,7 +3,7 @@ package com.djg.dmall_api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.djg.dmall_api.controller"})
+@SpringBootApplication(scanBasePackages = {"com.djg"})
 public class Dmall_apiApplication {
 
 	public static void main(String[] args) {
