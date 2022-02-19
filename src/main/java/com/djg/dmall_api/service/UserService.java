@@ -3,7 +3,6 @@ package com.djg.dmall_api.service;
 import com.djg.dmall_api.dao.UserDao;
 import com.djg.dmall_api.mapper.UserMapper;
 import com.djg.dmall_api.po.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
