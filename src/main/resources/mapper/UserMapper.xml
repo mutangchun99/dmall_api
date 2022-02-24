@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.djg.dmall_api.mapper.UserMapper">
+<mapper namespace="com.djg.dmall_api.dao.UserMapper">
     <select id="selectByMobileUser"  resultType="com.djg.dmall_api.po.User">
         SELECT *
         FROM dmall_user
