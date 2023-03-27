@@ -9,9 +9,10 @@ import java.util.List;
  */
 public interface ProjectMapper {
     /**
-     *
      * @param projectName
      * @return
      */
     List<Project> getProjectList(String projectName);
+
+    List<Project> getProjectLists();
 }

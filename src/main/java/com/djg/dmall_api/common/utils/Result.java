@@ -17,9 +17,10 @@ public class Result implements Serializable {
     private String message = "待处理";
     private Map<String, Object> data = new HashMap<String, Object>();
 
-    public Result(){}
+    public Result() {
+    }
 
-    public Result(int status, String message){
+    public Result(int status, String message) {
         this.status = status;
         this.message = message;
     }

@@ -13,4 +13,8 @@
             and pj_name = #{projectName}
         </if>
     </select>
+    <select id="getProjectLists" resultType="com.djg.dmall_api.po.Project">
+        SELECT *
+        FROM project
+    </select>
 </mapper>
