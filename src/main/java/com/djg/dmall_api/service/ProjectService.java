@@ -13,7 +13,7 @@ public interface ProjectService {
     /**
      * @return
      */
-    String newProject();
+    String newProject(Project project) throws JsonProcessingException;
 
     String delProject();
 

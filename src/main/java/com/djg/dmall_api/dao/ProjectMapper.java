@@ -15,4 +15,6 @@ public interface ProjectMapper {
     List<Project> getProjectList(String projectName);
 
     List<Project> getProjectLists();
+
+    Boolean newProject(Project project);
 }

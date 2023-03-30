@@ -22,8 +22,8 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/newProject")
-    public String newProject() {
-        return null;
+    public String newProject(@RequestBody Project project) throws JsonProcessingException {
+        return  projectService.newProject(project);
     }
 
     ;

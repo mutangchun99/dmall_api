@@ -1,10 +1,7 @@
 package com.djg.dmall_api.controller;
 
 import com.djg.dmall_api.service.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -19,7 +16,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(String username, String password) {
+    public String login(@RequestParam("username") String username,@RequestParam("password") String password) {
         return userService.login(username, password);
     }
 

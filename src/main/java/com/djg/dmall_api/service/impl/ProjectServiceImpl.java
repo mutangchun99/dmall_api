@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
-    Result result = new Result();
     final
     ProjectMapper projectMapper;
 
@@ -27,8 +26,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public String newProject() {
-        return null;
+    public String newProject(Project project) throws JsonProcessingException {
+        Result result = new Result();
+        try {
+
+            Boolean status =  projectMapper.newProject(project);
+            result.setStatus(200);
+            result.setMessage("添加成功！！");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JsonUtils.getJson(result);
     }
 
     @Override
@@ -43,6 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public String getProjectList(String projectName) throws JsonProcessingException {
+        Result result = new Result();
         List<Project> lproject = projectMapper.getProjectList(projectName);
         result.setStatus(200);
         result.setMessage("查询成功！");
@@ -52,16 +61,16 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public String getProjectLists(Integer pageNum, Integer pageSize) throws JsonProcessingException {
-
-            PageHelper.startPage(pageNum, pageSize);
-            List<Project> projects = projectMapper.getProjectLists();
-            PageInfo<Project> pageInfo = new PageInfo<>(projects);
-            System.out.println(pageInfo.getPageNum());
-            System.out.println(pageInfo.getPageSize());
-            result.setStatus(200);
-            result.setMessage("查询成功");
-            result.putData("pageInfo", pageInfo);
-            return JsonUtils.getJson(result);
+        Result result = new Result();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Project> projects = projectMapper.getProjectLists();
+        PageInfo<Project> pageInfo = new PageInfo<>(projects);
+        System.out.println(pageInfo.getPageNum());
+        System.out.println(pageInfo.getPageSize());
+        result.setStatus(200);
+        result.setMessage("查询成功");
+        result.putData("pageInfo", pageInfo);
+        return JsonUtils.getJson(result);
 
 
     }

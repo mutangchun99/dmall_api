@@ -33,8 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password) {
-        boolean a = jedisUtils.set("a1",username);
-        System.out.println(a);
         return null;
     }
 

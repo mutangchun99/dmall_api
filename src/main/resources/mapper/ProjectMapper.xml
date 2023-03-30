@@ -3,12 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.djg.dmall_api.dao.ProjectMapper">
+    <insert id="newProject">
+        insert into project(pj_Name, pj_Desc, pj_Mem, pj_Create, cs_Name)
+        values (#{pj_Name}, #{pj_Desc}, #{pj_Mem}, #{pj_Create}, #{cs_Name})
+    </insert>
 
 
     <select id="getProjectList" resultType="com.djg.dmall_api.po.Project">
         SELECT *
         FROM project
-            where 1=1
+        where 1=1
         <if test="projectName !=null and projectName!=''">
             and pj_name = #{projectName}
         </if>
