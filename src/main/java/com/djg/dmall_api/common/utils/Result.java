@@ -1,68 +1,166 @@
 package com.djg.dmall_api.common.utils;
 
-import org.slf4j.LoggerFactory;
+import com.djg.dmall_api.common.constant.ResultCode;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
+public class Result<T> implements Serializable {
+    private static final long serialVersionUID = -3960261604608758516L;
+    private int code;
 
-public class Result implements Serializable {
-
-    @SuppressWarnings("unused")
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Result.class);
-
-    private static final long serialVersionUID = -1802122468331526708L;
-    private int status = -1;
-    private String message = "待处理";
-    private Map<String, Object> data = new HashMap<String, Object>();
-
-    public Result() {
+    public int getCode() {
+        return code;
     }
 
-    public Result(int status, String message) {
-        this.status = status;
-        this.message = message;
+    public String getMsg() {
+        return msg;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Map<String, Object> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Map<String, Object> data) {
+    private String msg;
+    private T data;
+    public static <T> Result<T> success() {
+        return new Result<>();
+    }
+
+    /**
+     * 成功,默认状态码,返回消息,自定义返回数据
+     * @param data 自定义返回数据
+     * @param <T>  返回类泛型,不能为String
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> success(T data) {
+        return new Result<>(data);
+    }
+
+    /**
+     * 成功,默认状态码,自定义返回消息,返回数据
+     * @param msg  自定义返回消息
+     * @param data 自定义返回数据
+     * @param <T>  返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> success(String msg, T data) {
+        return new Result<>(msg, data);
+    }
+    /**
+     * 成功,默认状态码,自定义返回消息,无返回数据
+     *
+     * @param msg 自定义返回消息
+     * @param <T> 返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> success(String msg) {
+        return new Result<>(msg);
+    }
+    /**
+     * 失败,默认状态码,返回消息,无返回数据
+     * @param <T> 返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> error() {
+        return new Result<>(ResultCode.ERROR);
+    }
+    /**
+     * 失败,默认状态码,自定义返回消息,无返回数据
+     * @param <T> 返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> error(String msg) {
+        return new Result<>(ResultCode.ERROR.getCode(), msg);
+    }
+    /**
+     * 失败,自定义状态码,返回消息,无返回数据
+     * @param code 自定义状态码
+     * @param msg  自定义返回消息
+     * @param <T>  返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> error(int code, String msg) {
+        return new Result<>(code, msg);
+    }
+    /**
+     * 失败,使用CodeMsg状态码,返回消息,无返回数据
+     * @param resultCode CodeMsg,参数如下:
+     *                   <p> code 状态码
+     *                   <p> msg  返回消息
+     * @param <T>        返回类泛型
+     * @return 通用返回Result
+     */
+    public static <T> Result<T> error(ResultCode resultCode) {
+        return new Result<>(resultCode);
+    }
+    /**
+     * 成功构造器,无返回数据
+     */
+    private Result() {
+        this(ResultCode.SUCCESS);
+    }
+    /**
+     * 成功构造器,自定义返回数据
+     * @param data 返回数据
+     */
+    private Result(T data) {
+        this(ResultCode.SUCCESS, data);
+    }
+    /**
+     * 成功构造器,自定义返回消息,无返回数据
+     * @param msg 返回消息
+     */
+    private Result(String msg) {
+        this(ResultCode.SUCCESS.getCode(), msg);
+    }
+    /**
+     * 构造器,自定义状态码,返回消息
+     * @param code 状态码
+     * @param msg  返回消息
+     */
+    private Result(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+    /**
+     * 成功构造器,自定义返回信息,返回数据
+     * @param msg  返回信息
+     * @param data 返回数据
+     */
+    private Result(String msg, T data) {
+        this(ResultCode.SUCCESS.getCode(), msg, data);
+    }
+
+    /**
+     * 构造器,自定义状态码,返回消息,返回数据
+     * @param code 状态码
+     * @param msg  返回消息
+     * @param data 返回数据
+     */
+    private Result(int code, String msg, T data) {
+        this(code, msg);
+        this.data = data;
+    }
+    /**
+     * 构造器,使用CodeMsg状态码与返回信息,自定义返回数据
+     * @param resultCode CodeMsg,参数如下:
+     *                   <p> code 状态码
+     *                   <p> msg  返回消息
+     * @param data       返回数据
+     */
+    private Result(ResultCode resultCode, T data) {
+        this(resultCode);
         this.data = data;
     }
 
-    public void putData(String key, Object value) {
-        data.put(key, value);
+    /**
+     * 构造器,使用CodeMsg状态码与返回信息
+     * @param resultCode CodeMsg,参数如下:
+     *                   <p> code 状态码
+     *                   <p> msg  返回消息
+     */
+    private Result(ResultCode resultCode) {
+        this(resultCode.getCode(), resultCode.getMsg());
     }
 
-    public void removeData(String key) {
-        data.remove(key);
-    }
-
-    @Override
-    public String toString() {
-        return "Result{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                '}';
-    }
 }
