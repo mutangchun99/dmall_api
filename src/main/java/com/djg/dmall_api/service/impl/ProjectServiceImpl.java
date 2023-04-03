@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
  * @author mac
  */
 @Service
+@Transactional(rollbackFor = Exception.class )
 public class ProjectServiceImpl implements ProjectService {
 
     final
@@ -33,13 +36,22 @@ public class ProjectServiceImpl implements ProjectService {
             return JsonUtils.getJson(Result.success("添加成功！！"));
         } catch (Exception e) {
             e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return JsonUtils.getJson(Result.error());
     }
 
     @Override
-    public String delProject() {
-        return null;
+    public String delProject(String id) throws JsonProcessingException {
+        Boolean status = false;
+        try {
+            status = projectMapper.delProject(id);;
+            return JsonUtils.getJson(Result.success("删除成功！！"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return JsonUtils.getJson(Result.error());
     }
 
     @Override
@@ -47,16 +59,11 @@ public class ProjectServiceImpl implements ProjectService {
         return null;
     }
 
-    @Override
-    public String getProjectList(String projectName) throws JsonProcessingException {
-        List<Project> lproject = projectMapper.getProjectList(projectName);
-        return JsonUtils.getJson(Result.success("查询成功！", lproject));
-    }
 
     @Override
-    public String getProjectLists(Integer pageNum, Integer pageSize) throws JsonProcessingException {
+    public String getProjectLists(Integer pageNum, Integer pageSize, String projectName) throws JsonProcessingException {
         PageHelper.startPage(pageNum, pageSize);
-        List<Project> projects = projectMapper.getProjectLists();
+        List<Project> projects = projectMapper.getProjectLists(projectName);
         PageInfo<Project> pageInfo = new PageInfo<>(projects);
         return JsonUtils.getJson(Result.success("查询成功", pageInfo));
 

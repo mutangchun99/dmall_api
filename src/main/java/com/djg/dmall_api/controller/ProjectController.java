@@ -23,14 +23,14 @@ public class ProjectController {
 
     @PostMapping(value = "/newProject")
     public String newProject(@RequestBody Project project) throws JsonProcessingException {
-        return  projectService.newProject(project);
+        return projectService.newProject(project);
     }
 
     ;
 
     @GetMapping(value = "/delProject")
-    public String delProject() {
-        return null;
+    public String delProject(@RequestParam(value = "id") String id) throws JsonProcessingException {
+        return projectService.delProject(id);
     }
 
     ;
@@ -42,15 +42,9 @@ public class ProjectController {
 
     ;
 
-
-    @GetMapping(value = "/getProjectList")
-    public String getProjectList(@RequestParam("serachText") String projectName) throws JsonProcessingException {
-        return projectService.getProjectList(projectName);
-    }
-
     @GetMapping(value = "/getProjectLists")
-    public String getProjectLists(@RequestParam(value = "pageNum") Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize) throws JsonProcessingException {
+    public String getProjectLists(@RequestParam(value = "pageNum") Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize, @RequestParam("serachText") String projectName) throws JsonProcessingException {
 
-        return projectService.getProjectLists(pageNum, pageSize);
+        return projectService.getProjectLists(pageNum, pageSize, projectName);
     }
 }

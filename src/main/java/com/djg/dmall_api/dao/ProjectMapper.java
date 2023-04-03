@@ -12,9 +12,11 @@ public interface ProjectMapper {
      * @param projectName
      * @return
      */
-    List<Project> getProjectList(String projectName);
+//    List<Project> getProjectList(String projectName);
 
-    List<Project> getProjectLists();
+    List<Project> getProjectLists(String projectName);
 
     Boolean newProject(Project project);
+
+    Boolean delProject(String id);
 }

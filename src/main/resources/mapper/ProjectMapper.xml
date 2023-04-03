@@ -8,17 +8,16 @@
         values (#{pj_Name}, #{pj_Desc}, #{pj_Mem}, #{pj_Create}, #{cs_Name})
     </insert>
 
-
-    <select id="getProjectList" resultType="com.djg.dmall_api.po.Project">
+    <select id="getProjectLists" resultType="com.djg.dmall_api.po.Project">
         SELECT *
         FROM project
         where 1=1
         <if test="projectName !=null and projectName!=''">
-            and pj_name = #{projectName}
+            and pj_name like concat('%',#{projectName},'%')
         </if>
     </select>
-    <select id="getProjectLists" resultType="com.djg.dmall_api.po.Project">
-        SELECT *
-        FROM project
-    </select>
+
+    <delete id="delProject">
+        delete from project where id = #{id}
+    </delete>
 </mapper>
