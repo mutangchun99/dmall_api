@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @author mac
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

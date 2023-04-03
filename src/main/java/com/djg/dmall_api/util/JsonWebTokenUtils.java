@@ -14,35 +14,43 @@ import java.util.Map;
 
 
 
+/**
+ * @author mac
+ */
 public class JsonWebTokenUtils {
     /**
      * token 过期时间: 10天
      */
     public static final String SECRET="and0X3ZhbGlkYXRpb25fY29uZmlnX2tleQ==";
-    public static final int calendarField = Calendar.DATE;
-    public static final int calendarInterval = 10;
+    public static final int CALENDAR_FIELD = Calendar.DATE;
+    public static final int CALENDAR_INTERVAL = 10;
 
-    public static String createToken(Long user_id) {
+    public static String createToken(Long userId) {
 
         Date iatDate = new Date();
         // expire time
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(calendarField, calendarInterval);
+        nowTime.add(CALENDAR_FIELD, CALENDAR_INTERVAL);
         Date expiresDate = nowTime.getTime();
 
         // header Map
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(10);
         map.put("alg", "HS256");
         map.put("typ", "JWT");
 
         // build token
         // param backups {iss:Service, aud:APP}
-        String token = JWT.create().withHeader(map) // header
-                .withClaim("iss", "Service") // payload
-                .withClaim("aud", "APP").withClaim("user_id", null == user_id ? null : user_id.toString())
-                .withIssuedAt(iatDate) // sign time
-                .withExpiresAt(expiresDate) // expire time
-                .sign(Algorithm.HMAC256(SECRET)); // signature
+        // header
+        String token = JWT.create().withHeader(map)
+                // payload
+                .withClaim("iss", "Service")
+                .withClaim("aud", "APP").withClaim("user_id", null == userId ? null : userId.toString())
+                // sign time
+                .withIssuedAt(iatDate)
+                // expire time
+                .withExpiresAt(expiresDate)
+                // signature
+                .sign(Algorithm.HMAC256(SECRET));
 
         return token;
     }
@@ -60,8 +68,9 @@ public class JsonWebTokenUtils {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             jwt = verifier.verify(token);
         } catch (Exception e) {
-            // e.printStackTrace();
             // token 校验失败, 抛出Token验证非法异常
+             e.printStackTrace();
+
         }
         return jwt.getClaims();
     }
@@ -72,12 +81,12 @@ public class JsonWebTokenUtils {
      * @param token
      * @return user_id
      */
-    public static Long getAppUID(String token) {
+    public static Long getAppUid(String token) {
         Map<String, Claim> claims = verifyToken(token);
-        Claim user_id_claim = claims.get("user_id");
-        if (null == user_id_claim || StringUtils.isEmpty(user_id_claim.asString())) {
+        Claim userIdClaim = claims.get("user_id");
+        if (null == userIdClaim || StringUtils.isEmpty(userIdClaim.asString())) {
             // token 校验失败, 抛出Token验证非法异常
         }
-        return Long.valueOf(user_id_claim.asString());
+        return Long.valueOf(userIdClaim.asString());
     }
 }

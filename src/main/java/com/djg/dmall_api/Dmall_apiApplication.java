@@ -4,6 +4,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author mac
+ */
 @SpringBootApplication(scanBasePackages = {"com.djg"})
 @MapperScan(basePackages = {"com.djg.dmall_api.dao"})
 public class Dmall_apiApplication {

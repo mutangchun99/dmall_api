@@ -3,7 +3,10 @@ package com.djg.dmall_api.controller;
 import com.djg.dmall_api.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ *
+ * @author mac
+ */
 @RestController
 @CrossOrigin(origins = "*")
 public class LoginController {

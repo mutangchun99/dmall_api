@@ -1,5 +1,8 @@
 package com.djg.dmall_api.po;
 
+/**
+ * @author mac
+ */
 public class User {
 
     private int id;

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
+/**
+ * @author mac
+ */
 @RestController
 public class Pee {
 
@@ -30,7 +33,7 @@ public class Pee {
 
     @GetMapping(value = "/2")
     public String two() {
-        HashMap<String, String> ha = new HashMap<>();
+        HashMap<String, String> ha = new HashMap<>(10);
         ha.put("name", "lilitwo");
         ha.put("age", "20");
         ha.put("birthday", "2020-05-05");
@@ -39,7 +42,7 @@ public class Pee {
 
     @GetMapping(value = "/3")
     public String three() {
-        HashMap<String, String> ha = new HashMap<>();
+        HashMap<String, String> ha = new HashMap<>(10);
         ha.put("name", "lilithree");
         ha.put("age", "20");
         ha.put("birthday", "2020-05-05");
@@ -48,7 +51,7 @@ public class Pee {
 
     @GetMapping(value = "/4")
     public String four() {
-        HashMap<String, String> ha = new HashMap<>();
+        HashMap<String, String> ha = new HashMap<>(10);
         ha.put("name", "lilifour");
         ha.put("age", "20");
         ha.put("birthday", "2020-05-05");
@@ -57,7 +60,7 @@ public class Pee {
 
     @GetMapping(value = "/5")
     public String five() {
-        HashMap<String, String> ha = new HashMap<>();
+        HashMap<String, String> ha = new HashMap<>(10);
         ha.put("name", "lilifive");
         ha.put("age", "20");
         ha.put("birthday", "2020-05-05");

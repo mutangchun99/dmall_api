@@ -3,7 +3,9 @@ package com.djg.dmall_api.common.constant;
 import lombok.Builder;
 
 import java.io.Serializable;
-
+/**
+ * @author mac
+ */
 @Builder
 public class ResultCode implements Serializable {
     private static final long serialVersionUID = -6269841958947880397L;

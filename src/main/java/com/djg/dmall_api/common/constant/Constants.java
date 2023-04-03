@@ -2,6 +2,7 @@ package com.djg.dmall_api.common.constant;
 
 /**
  * 通用常量类
+ * @author mac
  */
 public class Constants {
 

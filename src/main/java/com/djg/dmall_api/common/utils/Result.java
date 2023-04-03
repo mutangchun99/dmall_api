@@ -4,6 +4,9 @@ import com.djg.dmall_api.common.constant.ResultCode;
 
 import java.io.Serializable;
 
+/**
+ * @author mac
+ */
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = -3960261604608758516L;
     private int code;
