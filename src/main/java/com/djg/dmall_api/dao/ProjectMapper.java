@@ -19,4 +19,6 @@ public interface ProjectMapper {
     Boolean newProject(Project project);
 
     Boolean delProject(String id);
+
+    Boolean updateProject(Project project);
 }

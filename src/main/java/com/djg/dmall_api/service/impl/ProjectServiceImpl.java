@@ -55,8 +55,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public String updateProject() {
-        return null;
+    public String updateProject(Project project) throws JsonProcessingException {
+        Boolean status = false;
+        try{
+            status = projectMapper.updateProject(project);
+            return JsonUtils.getJson(Result.success("更新成功！！"));
+        }catch (Exception e){
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return JsonUtils.getJson(Result.error());
     }
 
 

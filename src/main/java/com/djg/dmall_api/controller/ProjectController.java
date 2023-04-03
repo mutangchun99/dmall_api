@@ -35,15 +35,14 @@ public class ProjectController {
     ;
 
     @PostMapping(value = "/updateProject")
-    public String updateProject() {
-        return null;
+    public String updateProject(@RequestBody Project project) throws JsonProcessingException {
+        return projectService.updateProject(project);
     }
 
     ;
 
     @GetMapping(value = "/getProjectLists")
     public String getProjectLists(@RequestParam(value = "pageNum") Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize, @RequestParam("serachText") String projectName) throws JsonProcessingException {
-
         return projectService.getProjectLists(pageNum, pageSize, projectName);
     }
 }

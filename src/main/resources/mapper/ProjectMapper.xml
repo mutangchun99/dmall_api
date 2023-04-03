@@ -7,6 +7,16 @@
         insert into project(pj_Name, pj_Desc, pj_Mem, pj_Create, cs_Name)
         values (#{pj_Name}, #{pj_Desc}, #{pj_Mem}, #{pj_Create}, #{cs_Name})
     </insert>
+    <update id="updateProject">
+        update project
+        set pj_Name=#{pj_Name},
+            pj_Desc=#{pj_Desc},
+            pj_Mem=#{pj_Mem},
+            pj_Create=#{pj_Create},
+            cs_Name=#{cs_Name},
+            pj_Update=now()
+        where id = #{id}
+    </update>
 
     <select id="getProjectLists" resultType="com.djg.dmall_api.po.Project">
         SELECT *
@@ -18,6 +28,8 @@
     </select>
 
     <delete id="delProject">
-        delete from project where id = #{id}
+        delete
+        from project
+        where id = #{id}
     </delete>
 </mapper>

@@ -16,7 +16,7 @@ public interface ProjectService {
 
     String delProject(String id) throws JsonProcessingException;
 
-    String updateProject();
+    String updateProject(Project project) throws JsonProcessingException;;
 
     String getProjectLists(Integer pageNum, Integer pageSize,String projectName) throws JsonProcessingException;
 }
